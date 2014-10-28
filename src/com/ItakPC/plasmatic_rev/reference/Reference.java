@@ -36,6 +36,4 @@ public class Reference {
     public static final int chunkAmountX = 5;
     public static final int chunkAmountY = 5;
 
-
-
 }

@@ -1,14 +1,14 @@
 package com.ItakPC.plasmatic_rev;
 
-import com.ItakPC.plasmatic_rev.reference.Reference;
+import static com.ItakPC.plasmatic_rev.reference.Reference.*;
 
 public class GameThread extends Thread implements Runnable {
 
     @Override
     public void run() {
         // The wait time in milliseconds before next update/render
-        long GAME_SKIP_TICKS = 1000 / Reference.updatesSec;
-        long FRAME_SKIP_TICKS = 1000 / Reference.framesSec;
+        long GAME_SKIP_TICKS = 1000 / updatesSec;
+        long FRAME_SKIP_TICKS = 1000 / framesSec;
 
         // Schedules the updates and repaints
         long next_game_tick = System.currentTimeMillis();
@@ -24,8 +24,8 @@ public class GameThread extends Thread implements Runnable {
 
         while(true){
             loops = 0;
-            while(System.currentTimeMillis() > next_game_tick && loops < Reference.maxFSkip){
-                Reference.GAME.update();
+            while(System.currentTimeMillis() > next_game_tick && loops < maxFSkip){
+                GAME.update();
 
                 next_game_tick += GAME_SKIP_TICKS;
                 updates++;
@@ -34,15 +34,15 @@ public class GameThread extends Thread implements Runnable {
 
             if(System.currentTimeMillis() > next_frame_tick){
                 next_frame_tick += FRAME_SKIP_TICKS;
-                Reference.GAME.screen.repaint();
+                GAME.screen.repaint();
                 frames++;
             }
 
             if(time+1000 <= System.currentTimeMillis()){
                 time+=1000;
 
-                Reference.GAME.FPS = frames;
-                Reference.GAME.UPS = updates;
+                GAME.FPS = frames;
+                GAME.UPS = updates;
                 updates = 0;
                 frames = 0;
             }

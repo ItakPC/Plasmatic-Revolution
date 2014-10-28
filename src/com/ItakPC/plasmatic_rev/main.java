@@ -1,6 +1,6 @@
 package com.ItakPC.plasmatic_rev;
 
-import com.ItakPC.plasmatic_rev.reference.Reference;
+import static com.ItakPC.plasmatic_rev.reference.Reference.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -20,20 +20,20 @@ public class Main {
 
     public Main(){
         // Game object
-        Reference.GAME = new Game();
-        Reference.GAME.screen = Reference.GAME.new Screen();
-        Reference.GAME.start();
+        GAME = new Game();
+        GAME.screen = GAME.new Screen();
+        GAME.start();
 
         // You can customize the screen size under References
         Toolkit toolkit = Toolkit.getDefaultToolkit();
-        if(Reference.screenWidth == 0)
-            Reference.screenWidth = toolkit.getScreenSize().width;
-        if(Reference.screenHeight == 0)
-            Reference.screenHeight = toolkit.getScreenSize().height;
+        if(screenWidth == 0)
+            screenWidth = toolkit.getScreenSize().width;
+        if(screenHeight == 0)
+            screenHeight = toolkit.getScreenSize().height;
 
         // Creates a Window
-        JFrame frame = new JFrame(Reference.title);
-        frame.setSize(Reference.screenWidth,Reference. screenHeight);
+        JFrame frame = new JFrame(title);
+        frame.setSize(screenWidth, screenHeight);
         frame.setUndecorated(true); // TODO: If use of custom screen size, set this to false and pack the window
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLocationRelativeTo(null); // If you use custom screen size, this will make sure its centered
@@ -47,12 +47,12 @@ public class Main {
 
             @Override
             public void keyPressed(KeyEvent e) {
-                if(!Reference.pressedKeys.contains(e.getKeyCode())) Reference.pressedKeys.add(e.getKeyCode());
+                if(!pressedKeys.contains(e.getKeyCode())) pressedKeys.add(e.getKeyCode());
             }
 
             @Override
             public void keyReleased(KeyEvent e) {
-                Reference.pressedKeys.remove((Integer)e.getKeyCode());
+                pressedKeys.remove((Integer)e.getKeyCode());
             }
         });
         frame.addMouseListener(new MouseListener() {
@@ -84,14 +84,14 @@ public class Main {
         frame.addMouseMotionListener(new MouseMotionListener() {
             @Override
             public void mouseDragged(MouseEvent e) {
-                Reference.mouseX = e.getX();
-                Reference.mouseY = e.getY();
+                mouseX = e.getX();
+                mouseY = e.getY();
             }
 
             @Override
             public void mouseMoved(MouseEvent e) {
-                Reference.mouseX = e.getX();
-                Reference.mouseY = e.getY();
+                mouseX = e.getX();
+                mouseY = e.getY();
             }
         });
 
@@ -99,7 +99,7 @@ public class Main {
         // Custom Cursor
 
         // Adds the screen
-        frame.add(Reference.GAME.screen);
+        frame.add(GAME.screen);
 
         // Makes the window visible
         frame.setVisible(true);

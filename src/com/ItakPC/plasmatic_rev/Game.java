@@ -1,7 +1,7 @@
 package com.ItakPC.plasmatic_rev;
 
 import com.ItakPC.plasmatic_rev.reference.ImageLib;
-import com.ItakPC.plasmatic_rev.reference.Reference;
+import static com.ItakPC.plasmatic_rev.reference.Reference.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -34,25 +34,25 @@ public class Game {
 
     private void updateInput() {
         // Keys
-        for (int key : Reference.pressedKeys) {
+        for (int key : pressedKeys) {
             if (key == KeyEvent.VK_W) {
                 map.player.posY--;
             }
         }
 
-        for (int key1 : Reference.pressedKeys) {
+        for (int key1 : pressedKeys) {
             if (key1 == KeyEvent.VK_S) {
                 map.player.posY++;
             }
         }
 
-        for (int key2 : Reference.pressedKeys) {
+        for (int key2 : pressedKeys) {
             if (key2 == KeyEvent.VK_D) {
                 map.player.posX++;
             }
         }
 
-        for (int key3 : Reference.pressedKeys) {
+        for (int key3 : pressedKeys) {
             if (key3 == KeyEvent.VK_A) {
                 map.player.posX--;
             }
@@ -71,7 +71,7 @@ public class Game {
 
         public void paintComponent(Graphics g){
             // Clears the screen
-            g.clearRect(0, 0, Reference.screenWidth, Reference.screenHeight);
+            g.clearRect(0, 0, screenWidth, screenHeight);
 
             // Renders background of screen
             renderBackground(g);
@@ -84,15 +84,18 @@ public class Game {
         }
 
         private void renderBackground(Graphics g){
-            for(Chunk chunk : map.loadedChunks) {
-                g.drawLine(100+chunk.chunkX*5, 100+chunk.chunkY*5, 100+chunk.chunkX*5, 100+chunk.chunkY*5);
-            }
+            for(Chunk chunk : map.loadedChunks){
+                int posX = chunk.chunkX*tileAmountX*tileSize*pixelSize - map.player.posX*tileSize*pixelSize - tileSize*pixelSize/2 + screenWidth/2;
+                int posY = chunk.chunkY*tileAmountY*tileSize*pixelSize - map.player.posY*tileSize*pixelSize - tileSize*pixelSize/2 + screenHeight/2;
 
-          /*  for(int x = 0; x < 20; x++){
-                for(int y = 0; y < 20; y++){
-                    g.drawImage(ImageLib.GRASS, x*Reference.tileSize*Reference.pixelSize, y*Reference.tileSize*Reference.pixelSize, Reference.tileSize*Reference.pixelSize, Reference.tileSize*Reference.pixelSize, null);
+                for(int x = 0; x < chunk.tiles.length; x++){
+                    for(int y = 0; y < chunk.tiles[0].length; y++){
+                        g.drawImage(chunk.tiles[x][y].texture, x*tileSize*pixelSize + posX, y*tileSize*pixelSize + posY, tileSize*pixelSize, tileSize*pixelSize, null);
+                    }
                 }
-            }*/
+                g.drawLine(posX, 0, posX, screenHeight);
+                g.drawLine(0, posY, screenWidth, posY);
+            }
         }
 
         private void render(Graphics g){
@@ -104,11 +107,11 @@ public class Game {
             drawString(g, "FPS: " + FPS);
             drawString(g, "UPS: " + UPS);
             drawString(g, "");
-            drawString(g, "AmountKeysPressed: " + Reference.pressedKeys.size());
-            drawList(g, toStringList("KeyPressed: ", Reference.pressedKeys));
+            drawString(g, "AmountKeysPressed: " + pressedKeys.size());
+            drawList(g, toStringList("KeyPressed: ", pressedKeys));
             drawString(g, "");
-            drawString(g, "MouseX: " + Reference.mouseX);
-            drawString(g, "MouseY: " + Reference.mouseY);
+            drawString(g, "MouseX: " + mouseX);
+            drawString(g, "MouseY: " + mouseY);
             drawString(g, "");
             drawString(g, "PosX: " + map.player.posX);
             drawString(g, "PosY: " + map.player.posY);
