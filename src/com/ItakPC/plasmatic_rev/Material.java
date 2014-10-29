@@ -10,6 +10,7 @@ public class Material {
     public static final Material WATER = new Material("water");
     public static final Material DEEPWATER = new Material("deepwater");
     public static final Material SAND = new Material("sand");
+    public static final Material ROCK = new Material("rock");
 
     private List<String> reseourceIds;
 

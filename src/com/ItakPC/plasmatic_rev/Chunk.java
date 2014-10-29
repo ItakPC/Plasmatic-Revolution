@@ -19,11 +19,6 @@ public class Chunk {
 
         SimplexNoise simplexNoise = new SimplexNoise(7, 0.1);
 
-        /*double xStart = chunkX*tileAmountX;
-        double xEnd = xStart+tileAmountX;
-        double yStart = chunkY*tileAmountY;
-        double yEnd = yStart+tileAmountY;*/
-
         double xStart = chunkX*tileAmountX;
         double xEnd = xStart+tileAmountX;
         double yStart = chunkY*tileAmountY;
@@ -47,9 +42,12 @@ public class Chunk {
                 else if(noise < 0.5F)
                     material = Material.WATER;
                 else if(noise < 0.525F)
+                    material = Material.SAND;
+                else if(noise < 0.545F)
                     material = Material.GRASS;
                 else
-                    material = Material.SAND;
+                    material = Material.ROCK;
+
                 tiles[i][j] = new Tile(material);
 
                 data[i][j] = noise;
