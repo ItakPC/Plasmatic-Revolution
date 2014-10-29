@@ -1,5 +1,7 @@
 package com.ItakPC.plasmatic_rev;
 
+import com.ItakPC.plasmatic_rev.reference.Reference;
+
 import static com.ItakPC.plasmatic_rev.reference.Reference.*;
 
 public class GameThread extends Thread implements Runnable {
@@ -25,7 +27,7 @@ public class GameThread extends Thread implements Runnable {
         while(true){
             loops = 0;
             while(System.currentTimeMillis() > next_game_tick && loops < maxFSkip){
-                GAME.update();
+                Reference.GAME.update();
 
                 next_game_tick += GAME_SKIP_TICKS;
                 updates++;

@@ -1,6 +1,8 @@
 package com.ItakPC.plasmatic_rev;
 
 import com.ItakPC.plasmatic_rev.reference.ImageLib;
+import com.ItakPC.plasmatic_rev.reference.Reference;
+
 import static com.ItakPC.plasmatic_rev.reference.Reference.*;
 
 import javax.swing.*;
@@ -20,7 +22,7 @@ public class Game {
 
     public Game(){
         map = new Map(new Player());
-
+  
         // Starts the game thread
         thread = new GameThread();
     }
@@ -34,7 +36,7 @@ public class Game {
 
     private void updateInput() {
         // Keys
-        for (int key : pressedKeys) {
+        for (int key : Reference.pressedKeys) {
             if (key == KeyEvent.VK_W) {
                 map.player.posY--;
             }
@@ -83,14 +85,14 @@ public class Game {
             renderForeground(g);
         }
 
-        private void renderBackground(Graphics g){
-            for(Chunk chunk : map.loadedChunks){
-                int posX = chunk.chunkX*tileAmountX*tileSize*pixelSize - map.player.posX*tileSize*pixelSize - tileSize*pixelSize/2 + screenWidth/2;
-                int posY = chunk.chunkY*tileAmountY*tileSize*pixelSize - map.player.posY*tileSize*pixelSize - tileSize*pixelSize/2 + screenHeight/2;
+        private void renderBackground(Graphics g) {
+            for (Chunk chunk : map.loadedChunks) {
+                int posX = chunk.chunkX * tileAmountX * tileSize * pixelSize - map.player.posX * tileSize * pixelSize - tileSize * pixelSize / 2 + screenWidth / 2;
+                int posY = chunk.chunkY * tileAmountY * tileSize * pixelSize - map.player.posY * tileSize * pixelSize - tileSize * pixelSize / 2 + screenHeight / 2;
 
-                for(int x = 0; x < chunk.tiles.length; x++){
-                    for(int y = 0; y < chunk.tiles[0].length; y++){
-                        g.drawImage(chunk.tiles[x][y].texture, x*tileSize*pixelSize + posX, y*tileSize*pixelSize + posY, tileSize*pixelSize, tileSize*pixelSize, null);
+                for (int x = 0; x < chunk.tiles.length; x++) {
+                    for (int y = 0; y < chunk.tiles[0].length; y++) {
+                        g.drawImage(chunk.tiles[x][y].texture, x * tileSize * pixelSize + posX, y * tileSize * pixelSize + posY, tileSize * pixelSize, tileSize * pixelSize, null);
                     }
                 }
                 g.drawLine(posX, 0, posX, screenHeight);

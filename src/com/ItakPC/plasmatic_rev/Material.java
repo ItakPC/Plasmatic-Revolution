@@ -7,6 +7,9 @@ import java.util.Random;
 public class Material {
 
     public static final Material GRASS = new Material("grass");
+    public static final Material WATER = new Material("water");
+    public static final Material DEEPWATER = new Material("deepwater");
+    public static final Material SAND = new Material("sand");
 
     private List<String> reseourceIds;
 
