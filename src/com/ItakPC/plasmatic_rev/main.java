@@ -19,24 +19,34 @@ public class Main {
     }
 
     public Main(){
-        // Game object
+        Dimension maxScreenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        if(screenWidth == 0) screenWidth = maxScreenSize.width;
+        if(screenHeight == 0) screenHeight = maxScreenSize.height;
+
+        /** Screen object*/
         GAME = new Game();
         GAME.screen = GAME.new Screen();
         GAME.start();
 
         // You can customize the screen size under References
-        Toolkit toolkit = Toolkit.getDefaultToolkit();
-        if(screenWidth == 0)
-            screenWidth = toolkit.getScreenSize().width;
-        if(screenHeight == 0)
-            screenHeight = toolkit.getScreenSize().height;
 
-        // Creates a Window
+
+        /** Creates a Window */
         JFrame frame = new JFrame(title);
-        frame.setSize(screenWidth, screenHeight);
-        frame.setUndecorated(true); // TODO: If use of custom screen size, set this to false and pack the window
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setLocationRelativeTo(null); // If you use custom screen size, this will make sure its centered
+        frame.setResizable(false);
+
+        boolean fullscreen = fullscreenWindow;
+        if(screenWidth == maxScreenSize.width && screenHeight == maxScreenSize.height) fullscreen = true;
+        frame.setSize(screenWidth, screenHeight);
+
+        if(fullscreen) {
+            frame.setUndecorated(true);
+        }else{
+            frame.getContentPane().setPreferredSize(new Dimension(screenWidth, screenHeight));
+            frame.pack();
+        }
+
 
         // Frame listeners
         frame.addKeyListener(new KeyListener() {
@@ -102,6 +112,7 @@ public class Main {
         frame.add(GAME.screen);
 
         // Makes the window visible
+        frame.setLocationRelativeTo(null);
         frame.setVisible(true);
     }
 

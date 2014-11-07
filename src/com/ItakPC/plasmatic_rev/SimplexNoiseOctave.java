@@ -48,11 +48,6 @@ public class SimplexNoiseOctave {
         }
     }
 
-    private int fastFloor(double x){
-        int xi = (int)x;
-        return x<xi ? xi-1 : xi;
-    }
-
     private double dot(Point point, double x, double y){
         return point.x*x + point.y*y;
     }
@@ -63,8 +58,8 @@ public class SimplexNoiseOctave {
     // 2D Simplex Noise
     public double noise(double xin, double yin){
         double s = (xin+yin)*F2;
-        int i = fastFloor(xin+s);
-        int j = fastFloor(yin+s);
+        int i = Game.fastFloor(xin+s);
+        int j = Game.fastFloor(yin+s);
         double t = (i+j)*G2;
         double X0 = i-t;
         double Y0 = j-t;

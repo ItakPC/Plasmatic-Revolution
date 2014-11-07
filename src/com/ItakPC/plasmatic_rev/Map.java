@@ -17,8 +17,8 @@ public class Map {
     }
 
     public void checkChunks() {
-        int playerChunkX = player.posX / tileAmountX;
-        int playerChunkY = player.posY / tileAmountY;
+        int playerChunkX = Game.fastFloor(player.posX / (double)tileAmountX);
+        int playerChunkY = Game.fastFloor(player.posY / (double)tileAmountY);
 
         /** Unload chunks */
         unloadChunks(playerChunkX, playerChunkY);

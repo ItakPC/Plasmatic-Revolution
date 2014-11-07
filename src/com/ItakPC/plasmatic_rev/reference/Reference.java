@@ -9,11 +9,14 @@ public class Reference {
 
     // MAIN
     public static final String title = "Plasmatic Revolution";
-    public static int screenWidth;
-    public static int screenHeight;
+    public static final float optimisedSceenWidth = 1920;
+    public static final float optimisedSceenHeight = 1080;
+    public static final boolean fullscreenWindow = false;
+    public static int screenWidth = 800;
+    public static int screenHeight = 600;
 
     // SCREEN
-    public static int pixelSize = 3;
+    public static float pixelSize = 3;
     public static int tileSize = 16;
 
     // GAME THREAD

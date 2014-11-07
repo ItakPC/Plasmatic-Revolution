@@ -20,8 +20,14 @@ public class Game {
     public int FPS;
     public int UPS;
 
+    public float pixelScaleWidth;
+    public float pixelScaleHeight;
+
     public Game(){
         map = new Map(new Player());
+
+        pixelScaleWidth = screenWidth / optimisedSceenWidth;
+        pixelScaleHeight = screenHeight / optimisedSceenHeight;
   
         // Starts the game thread
         thread = new GameThread();
@@ -37,36 +43,37 @@ public class Game {
     private void updateInput() {
         // Keys
         for (int key : Reference.pressedKeys) {
-            if (key == KeyEvent.VK_W) {
+            if (key == KeyEvent.VK_W || key == KeyEvent.VK_UP) {
                 map.player.posY--;
             }
         }
 
         for (int key1 : pressedKeys) {
-            if (key1 == KeyEvent.VK_S) {
+            if (key1 == KeyEvent.VK_S || key1 == KeyEvent.VK_DOWN) {
                 map.player.posY++;
             }
         }
 
         for (int key2 : pressedKeys) {
-            if (key2 == KeyEvent.VK_D) {
+            if (key2 == KeyEvent.VK_D || key2 == KeyEvent.VK_RIGHT) {
                 map.player.posX++;
             }
         }
 
         for (int key3 : pressedKeys) {
-            if (key3 == KeyEvent.VK_A) {
+            if (key3 == KeyEvent.VK_A || key3 == KeyEvent.VK_LEFT) {
                 map.player.posX--;
             }
         }
-        /** 2 if statements to not allow you to get into negative position :D */
-        if(map.player.posX <= 0) {
-            map.player.posX = 0;
-        }
+    }
 
-        if(map.player.posY <= 0) {
-            map.player.posY = 0;
-        }
+    public static int ceil(double x){
+        return (int)Math.ceil(x);
+    }
+
+    public static int fastFloor(double x){
+        int xi = (int)x;
+        return x<xi ? xi-1 : xi;
     }
 
     public class Screen extends JPanel {
@@ -87,12 +94,12 @@ public class Game {
 
         private void renderBackground(Graphics g) {
             for (Chunk chunk : map.loadedChunks) {
-                int posX = chunk.chunkX * tileAmountX * tileSize * pixelSize - map.player.posX * tileSize * pixelSize - tileSize * pixelSize / 2 + screenWidth / 2;
-                int posY = chunk.chunkY * tileAmountY * tileSize * pixelSize - map.player.posY * tileSize * pixelSize - tileSize * pixelSize / 2 + screenHeight / 2;
+                int posX = ceil((chunk.chunkX * tileAmountX * tileSize * pixelSize - map.player.posX * tileSize * pixelSize - tileSize * pixelSize / 2) * pixelScaleWidth + screenWidth / 2);
+                int posY = ceil((chunk.chunkY * tileAmountY * tileSize * pixelSize - map.player.posY * tileSize * pixelSize - tileSize * pixelSize / 2) * pixelScaleHeight + screenHeight / 2);
 
                 for (int x = 0; x < chunk.tiles.length; x++) {
                     for (int y = 0; y < chunk.tiles[0].length; y++) {
-                        g.drawImage(chunk.tiles[x][y].texture, x * tileSize * pixelSize + posX, y * tileSize * pixelSize + posY, tileSize * pixelSize, tileSize * pixelSize, null);
+                        g.drawImage(chunk.tiles[x][y].texture, ceil(x * tileSize * pixelSize * pixelScaleWidth + posX), ceil(y * tileSize * pixelSize * pixelScaleHeight + posY), ceil(tileSize * pixelSize * pixelScaleWidth), ceil(tileSize * pixelSize * pixelScaleHeight), null);
                     }
                 }
                 g.drawLine(posX, 0, posX, screenHeight);
@@ -101,7 +108,7 @@ public class Game {
         }
 
         private void render(Graphics g){
-
+            g.drawImage(map.player.texture, screenWidth / 2 - ceil(tileSize * pixelSize * pixelScaleWidth / 2), screenHeight / 2 - ceil(tileSize * pixelSize * pixelScaleHeight / 2), ceil(tileSize * pixelSize * pixelScaleWidth), ceil(tileSize * pixelSize * pixelScaleHeight), null);
         }
 
         private void renderForeground(Graphics g){
