@@ -1,4 +1,4 @@
-package com.ItakPC.plasmatic_rev;
+package com.ItakPC.plasmatic_rev.assets;
 
 import java.util.ArrayList;
 import java.util.List;

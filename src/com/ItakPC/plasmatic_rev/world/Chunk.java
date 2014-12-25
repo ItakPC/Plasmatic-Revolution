@@ -1,6 +1,13 @@
-package com.ItakPC.plasmatic_rev;
+package com.ItakPC.plasmatic_rev.world;
+
+import com.ItakPC.plasmatic_rev.Game;
+import com.ItakPC.plasmatic_rev.Material;
+import com.ItakPC.plasmatic_rev.SimplexNoise;
+
+import java.awt.*;
 
 import static com.ItakPC.plasmatic_rev.reference.Reference.*;
+import static com.ItakPC.plasmatic_rev.Game.*;
 
 public class Chunk {
 
@@ -53,6 +60,21 @@ public class Chunk {
                 data[i][j] = noise;
             }
         }
+    }
+
+    public void render(Graphics g) {
+        int posX = ceil((chunkX * tileAmountX * tileSize * pixelSize - Game.instance.player.posX * tileSize * pixelSize - tileSize * pixelSize / 2) * pixelScaleWidth + screenWidth / 2);
+        int posY = ceil((chunkY * tileAmountY * tileSize * pixelSize - Game.instance.player.posY * tileSize * pixelSize - tileSize * pixelSize / 2) * pixelScaleHeight + screenHeight / 2);
+
+        for (int x = 0; x < tiles.length; x++) {
+            for (int y = 0; y < tiles[0].length; y++) {
+                tiles[x][y].render(g, ceil(x * tileSize * pixelSize * pixelScaleWidth + posX), ceil(y * tileSize * pixelSize * pixelScaleHeight + posY));
+                //g.drawImage(tiles[x][y].texture, ceil(x * tileSize * pixelSize * pixelScaleWidth + posX), ceil(y * tileSize * pixelSize * pixelScaleHeight + posY), ceil(tileSize * pixelSize * pixelScaleWidth), ceil(tileSize * pixelSize * pixelScaleHeight), null);
+            }
+        }
+        g.drawLine(posX, 0, posX, screenHeight);
+        g.drawLine(0, posY, screenWidth, posY);
+
     }
 
     public boolean equals(Object object){

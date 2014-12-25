@@ -1,4 +1,6 @@
-package com.ItakPC.plasmatic_rev;
+package com.ItakPC.plasmatic_rev.entity;
+
+import com.ItakPC.plasmatic_rev.TextureManager;
 
 import java.awt.*;
 

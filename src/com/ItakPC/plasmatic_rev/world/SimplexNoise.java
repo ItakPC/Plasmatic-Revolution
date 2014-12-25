@@ -1,4 +1,4 @@
-package com.ItakPC.plasmatic_rev;
+package com.ItakPC.plasmatic_rev.world;
 
 import java.util.Random;
 import static com.ItakPC.plasmatic_rev.reference.Reference.*;

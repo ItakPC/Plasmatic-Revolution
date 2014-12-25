@@ -1,4 +1,4 @@
-package com.ItakPC.plasmatic_rev;
+package com.ItakPC.plasmatic_rev.assets;
 
 import javax.imageio.ImageIO;
 import java.awt.*;

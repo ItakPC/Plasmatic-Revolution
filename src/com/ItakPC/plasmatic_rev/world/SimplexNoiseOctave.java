@@ -1,4 +1,6 @@
-package com.ItakPC.plasmatic_rev;
+package com.ItakPC.plasmatic_rev.world;
+
+import com.ItakPC.plasmatic_rev.Game;
 
 import java.awt.*;
 import java.util.Random;
@@ -58,7 +60,7 @@ public class SimplexNoiseOctave {
     // 2D Simplex Noise
     public double noise(double xin, double yin){
         double s = (xin+yin)*F2;
-        int i = Game.fastFloor(xin+s);
+        int i = Game.fastFloor(xin + s);
         int j = Game.fastFloor(yin+s);
         double t = (i+j)*G2;
         double X0 = i-t;

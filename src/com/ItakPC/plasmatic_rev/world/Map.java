@@ -1,24 +1,24 @@
-package com.ItakPC.plasmatic_rev;
+package com.ItakPC.plasmatic_rev.world;
+
+import com.ItakPC.plasmatic_rev.Game;
 
 import static com.ItakPC.plasmatic_rev.reference.Reference.*;
 
-import java.util.ArrayList;
+import java.awt.*;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 public class Map {
 
     List<Chunk> loadedChunks = new CopyOnWriteArrayList<Chunk>();
-    Player player;
 
-    public Map(Player player) {
-        this.player = player;
+    public Map() {
         checkChunks();
     }
 
     public void checkChunks() {
-        int playerChunkX = Game.fastFloor(player.posX / (double)tileAmountX);
-        int playerChunkY = Game.fastFloor(player.posY / (double)tileAmountY);
+        int playerChunkX = Game.fastFloor(Game.instance.player.posX / (double) tileAmountX);
+        int playerChunkY = Game.fastFloor(Game.instance.player.posY / (double)tileAmountY);
 
         /** Unload chunks */
         unloadChunks(playerChunkX, playerChunkY);
@@ -26,6 +26,12 @@ public class Map {
         /** Load chunks */
         loadChunks(playerChunkX, playerChunkY);
 
+    }
+
+    public void render(Graphics g) {
+        for(Chunk chunk : loadedChunks) {
+            chunk.render(g);
+        }
     }
 
     private void unloadChunks(int playerChunkX, int playerChunkY) {
